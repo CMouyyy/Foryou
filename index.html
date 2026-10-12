@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To the one who feels like home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Sacramento&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#291d1a; --wine:#552f2c; --paper:#f5ecdf; --blush:#e9bdb2; --gold:#b98b64; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:#271815; color:var(--paper); font-family:"DM Mono", monospace; overflow-x:hidden; }
+    body::before { content:""; position:fixed; inset:0; opacity:.18; pointer-events:none; z-index:9; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); }
+    .hero { min-height:100svh; position:relative; display:grid; place-items:center; isolation:isolate; padding:60px 22px 36px; background:linear-gradient(145deg,rgba(32,18,15,.68),rgba(87,43,38,.38)),url('our-photo.png') center/cover; background-size:cover; animation:heroDrift 16s ease-in-out infinite alternate; }
+    .hero::after { content:""; position:absolute; inset:12px; z-index:-1; border:1px solid rgba(245,236,223,.6); box-shadow:inset 0 0 0 10px rgba(41,29,26,.2); }
+    .hero-content { max-width:660px; text-align:center; text-shadow:0 2px 20px #170b09; animation:appear 1.3s ease both; }
+    .eyebrow { text-transform:uppercase; font-size:10px; letter-spacing:.28em; margin:0 0 22px; }
+    h1, h2 { font-family:"Playfair Display", serif; font-weight:500; }
+    h1 { margin:0; font-size:clamp(3.6rem,12vw,8rem); line-height:.86; letter-spacing:-.065em; }
+    h1 em { font-family:Sacramento, cursive; color:var(--blush); font-size:1.06em; font-weight:400; letter-spacing:0; }
+    .intro { max-width:440px; margin:27px auto 30px; font-size:13px; line-height:1.9; }
+    .scroll { color:var(--paper); text-decoration:none; font:10px "DM Mono"; letter-spacing:.16em; text-transform:uppercase; background:transparent; border:0; border-bottom:1px solid var(--blush); padding:0 0 7px; display:inline-block; cursor:pointer; animation:bob 2s ease-in-out infinite; }
+    main { background:var(--paper); color:var(--ink); }
+    .note { min-height:560px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:center; gap:clamp(25px,7vw,100px); padding:clamp(50px,10vw,130px) max(8vw,28px); }
+    .film { background:#170d0c; padding:20px 15px; transform:rotate(-3deg); box-shadow:14px 16px 30px rgba(43,25,20,.22); position:relative; transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s; }
+    .film:hover { transform:rotate(1deg) scale(1.04); box-shadow:22px 26px 45px rgba(43,25,20,.28); }
+    .film::before,.film::after { content:"●  ●  ●  ●  ●"; display:block; color:#f5ecdf; letter-spacing:8px; font-size:11px; height:18px; overflow:hidden; white-space:nowrap; }
+    .film::after { transform:rotate(180deg); }
+    .film img { display:block; width:100%; aspect-ratio:3/4; object-fit:cover; object-position:center; margin:9px 0; filter:sepia(.13) saturate(.86); }
+    .note-copy { max-width:520px; }
+    h2 { font-size:clamp(2.4rem,5vw,4.8rem); letter-spacing:-.055em; line-height:.98; margin:0 0 25px; }
+    .note-copy p { font-size:13px; line-height:2; margin:0 0 18px; }
+    .signature { font-family:Sacramento, cursive; color:var(--wine); font-size:46px; line-height:1; margin-top:28px!important; }
+    .reasons { background:var(--wine); color:var(--paper); text-align:center; padding:100px max(8vw,28px); }
+    .reasons h2 { color:var(--blush); }
+    .reasons > p { font-size:12px; opacity:.8; margin:0 auto 45px; max-width:430px; line-height:1.8; }
+    .cards { max-width:1000px; display:grid; grid-template-columns:repeat(3,1fr); gap:15px; margin:auto; text-align:left; }
+    .card { border:1px solid rgba(245,236,223,.45); min-height:220px; padding:27px; display:flex; flex-direction:column; justify-content:space-between; transition:transform .3s,background .3s; }
+    .card:hover { background:rgba(245,236,223,.1); transform:translateY(-7px); }
+    .num { color:var(--blush); font-family:"Playfair Display"; font-style:italic; font-size:27px; }
+    .card h3 { font:500 25px "Playfair Display"; margin:18px 0 10px; }
+    .card p { font-size:11px; line-height:1.8; margin:0; opacity:.87; }
+    .memories { background:#d8b9a5; color:var(--ink); min-height:760px; display:grid; grid-template-columns:1fr minmax(260px,430px) 1fr; gap:35px; align-items:center; padding:90px max(8vw,28px); overflow:hidden; position:relative; }
+    .memories::before { content:"you + me + all the little moments"; position:absolute; font:clamp(2rem,7vw,6rem) Sacramento,cursive; color:rgba(85,47,44,.12); white-space:nowrap; transform:rotate(-8deg); top:5%; left:-6%; }
+    .memory-copy { position:relative; z-index:1; }
+    .memory-copy p { font-size:12px; line-height:1.9; max-width:280px; }
+    .memory-copy:last-child { align-self:end; text-align:right; }
+    .memory-copy:last-child p { margin-left:auto; }
+    .strip-wrap { position:relative; z-index:1; transform:rotate(2deg); filter:drop-shadow(18px 25px 24px rgba(51,27,23,.3)); transition:transform .6s cubic-bezier(.2,.8,.2,1); }
+    .strip-wrap:hover { transform:rotate(-1deg) scale(1.035); }
+    .strip-wrap img { width:100%; display:block; }
+    .closing { min-height:100svh; padding:70px 25px; display:grid; place-items:center; text-align:center; background:radial-gradient(circle at 50% 20%,#82524a 0, #3a211d 43%,#1a100f 100%); position:relative; overflow:hidden; }
+    .closing-inner { max-width:680px; }
+    .closing h2 { font-size:clamp(3.2rem,9vw,6.7rem); color:var(--paper); }
+    .closing p { font:500 18px/1.9 "Playfair Display"; font-style:italic; max-width:500px; margin:0 auto 32px; }
+    .music { cursor:pointer; border:1px solid var(--blush); color:var(--paper); background:transparent; padding:13px 20px; font:10px "DM Mono"; letter-spacing:.13em; text-transform:uppercase; transition:.25s; }
+    .music:hover { background:var(--blush); color:var(--ink); }
+    footer { font-size:9px; letter-spacing:.13em; text-transform:uppercase; opacity:.6; margin-top:80px; }
+    .heart { color:var(--blush); font-size:23px; animation:pulse 1.8s infinite; display:inline-block; }
+    .float-heart { position:absolute; z-index:-1; color:var(--blush); opacity:.45; pointer-events:none; animation:floatUp linear infinite; }
+    .reveal { opacity:0; transform:translateY(38px); transition:opacity .8s ease,transform .8s cubic-bezier(.2,.75,.2,1); }
+    .reveal.show { opacity:1; transform:none; }
+    .spark { position:fixed; z-index:20; width:8px; height:8px; border-radius:50%; background:var(--blush); pointer-events:none; animation:sparkle .8s ease-out forwards; }
+    .welcome { position:fixed; z-index:30; inset:0; display:grid; place-items:center; background:#1b0d0c; transition:opacity .75s ease,visibility .75s; }
+    .welcome.gone { opacity:0; visibility:hidden; }
+    .little-note { position:fixed; z-index:25; inset:0; display:grid; place-items:center; padding:22px; background:rgba(27,13,12,.67); opacity:0; visibility:hidden; transition:.35s; backdrop-filter:blur(5px); }
+    .little-note.show { opacity:1; visibility:visible; }
+    .note-card { width:min(470px,100%); min-height:300px; position:relative; padding:58px 42px 38px; color:var(--ink); text-align:center; background:var(--paper); box-shadow:0 24px 70px #130806; transform:translateY(16px) rotate(-2deg); transition:transform .45s cubic-bezier(.2,.8,.2,1); }
+    .little-note.show .note-card { transform:none; }
+    .note-card::before { content:""; position:absolute; inset:13px; border:1px solid rgba(85,47,44,.35); }
+    .note-recipient { position:relative; display:block; margin-bottom:23px; font:11px "DM Mono"; letter-spacing:.15em; text-transform:uppercase; color:var(--wine); }
+    .note-card p { position:relative; font:500 25px/1.55 "Playfair Display"; font-style:italic; margin:0; }
+    .close-note { position:absolute; z-index:1; right:24px; top:23px; border:0; background:none; color:var(--wine); cursor:pointer; font:19px "DM Mono"; }
+    .envelope { border:0; color:var(--paper); background:transparent; cursor:pointer; text-align:center; font:11px "DM Mono"; letter-spacing:.16em; text-transform:uppercase; }
+    .envelope-shape { width:180px; height:118px; margin:0 auto 22px; position:relative; background:#b87870; box-shadow:0 14px 40px rgba(0,0,0,.4); transition:transform .5s; }
+    .envelope:hover .envelope-shape { transform:translateY(-10px) rotate(-2deg); }
+    .envelope-shape::before { content:""; position:absolute; inset:0; border-style:solid; border-width:59px 90px; border-color:#d59a91 transparent transparent; transform-origin:top; transition:transform .6s; }
+    .envelope:hover .envelope-shape::before { transform:rotateX(150deg); }
+    @keyframes appear { from {opacity:0; transform:translateY(18px)} to{opacity:1;transform:none} }
+    @keyframes heroDrift { from {background-position:48% center} to {background-position:56% center} }
+    @keyframes bob { 50% {transform:translateY(7px)} }
+    @keyframes pulse { 50% { transform:scale(1.25); } }
+    @keyframes floatUp { from { transform:translateY(110vh) rotate(0deg); opacity:0 } 10% {opacity:.45} to {transform:translateY(-15vh) rotate(25deg); opacity:0} }
+    @keyframes sparkle { to { transform:translate(var(--x),var(--y)) scale(0); opacity:0; } }
+    @media (max-width:700px) { .note { grid-template-columns:1fr; } .film { width:min(85vw,360px); margin:auto; } .cards { grid-template-columns:1fr; } .card { min-height:180px; } .memories { grid-template-columns:1fr; padding:70px 12vw; } .memory-copy:last-child { text-align:left; } .memory-copy:last-child p { margin-left:0; } }
+  </style>
+</head>
+<body>
+  <!--
+    EASY EDITS:
+    CUSTOMIZATION IS NOW IN customize.js.
+    Put your photos and MP3 in the assets folder, then only edit customize.js.
+  -->
+  <div class="welcome" id="welcome">
+    <button class="envelope" id="openLetter" aria-label="Open the letter">
+      <div class="envelope-shape"></div>
+      <span>tap to open a little letter</span>
+    </button>
+  </div>
+  <div class="little-note" id="littleNote" role="dialog" aria-modal="true" aria-label="A little love message">
+    <div class="note-card"><button class="close-note" id="closeNote" aria-label="Close">×</button><span class="note-recipient">for <span data-name>B.Mony Pich</span></span><p id="littleMessageText">I made this tiny place just to remind you: I see every little thing you do, and I am so grateful that it is you.</p></div>
+  </div>
+  <section class="hero">
+    <div class="hero-content">
+      <p class="eyebrow">a little note for</p>
+      <h1>my favorite<br><em>person.</em></h1>
+      <p class="intro">Thank you for choosing me — and for making ordinary days feel softer, brighter, and a little more like home.</p>
+      <button class="scroll" id="littleMessageButton">open a little message ↓</button>
+    </div>
+  </section>
+  <main>
+    <section class="note" id="letter">
+      <div class="film reveal"><img class="love-photo" src="assets/photo-1.png" alt="A favorite photo of us"></div>
+      <div class="note-copy reveal">
+        <p class="eyebrow" style="color:var(--gold)">dear <span data-name>B.Mony Pich</span>,</p>
+        <h2>Before you, life was good. With you, it has color.</h2>
+        <p>Thank you for coming into my life and choosing to stay. Thank you for the care you give so naturally, for the patience in the little moments, and for making me feel safe enough to be completely myself.</p>
+        <p>Somehow, in a world that can feel so big, you became the place where I feel most comfortable. You feel like home.</p>
+        <p class="signature">always yours, <span data-from>your beautiful girlfriend</span></p>
+      </div>
+    </section>
+    <section class="reasons">
+      <p class="eyebrow">the little things I notice</p>
+      <h2 class="reveal">Thank you for...</h2>
+      <p>Change these three cards to the things that are unmistakably him.</p>
+      <div class="cards">
+        <article class="card reveal"><span class="num">01</span><div><h3>Making me laugh</h3><p>Even on the slow, heavy, not-my-best days — you know how to make room for a smile.</p></div></article>
+        <article class="card reveal"><span class="num">02</span><div><h3>Choosing us</h3><p>For every effort, every check-in, and every quiet reminder that I never have to do life alone.</p></div></article>
+        <article class="card reveal"><span class="num">03</span><div><h3>Being my calm</h3><p>You make love feel gentle, safe, and easy to come home to.</p></div></article>
+      </div>
+    </section>
+    <section class="memories">
+      <div class="memory-copy reveal"><p class="eyebrow" style="color:var(--wine)">our tiny archive</p><h2>Six frames.<br>A thousand feelings.</h2><p>I want to keep collecting ordinary, silly, beautiful moments with you. The ones no one else sees — but somehow mean everything.</p></div>
+      <div class="strip-wrap reveal"><img class="love-strip" src="assets/photo-strip.png" alt="Six photo-booth memories together"></div>
+      <div class="memory-copy reveal"><p>“You gave my life color, and made love feel like the safest place I know.”</p><p class="signature">B.Mony Pich + me</p></div>
+    </section>
+  </main>
+  <section class="closing">
+    <div class="closing-inner">
+      <p class="eyebrow">for all the days ahead</p>
+      <h2>I’d choose you too.<br><span class="heart">♥</span></h2>
+      <p>Thank you for being every bit of the kind of love I used to hope for.</p>
+      <footer>made with all my love · <span data-date>always &amp; forever</span></footer>
+    </div>
+  </section>
+  <script src="customize.js"></script>
+  <script>
+    const settings = window.LOVE_SITE || {};
+    document.querySelectorAll('[data-name]').forEach(el => el.textContent = settings.hisName || 'B.Mony Pich');
+    document.querySelectorAll('[data-from]').forEach(el => el.textContent = settings.from || 'your beautiful girlfriend');
+    document.querySelectorAll('[data-date]').forEach(el => el.textContent = settings.date || 'always & forever');
+    document.querySelectorAll('.love-photo').forEach(img => img.src = settings.photo || 'assets/photo-1.png');
+    document.querySelectorAll('.love-strip').forEach(img => img.src = settings.photoStrip || 'assets/photo-strip.png');
+    document.querySelector('.hero').style.backgroundImage = `linear-gradient(145deg,rgba(32,18,15,.68),rgba(87,43,38,.38)),url('${settings.photo || 'assets/photo-1.png'}')`;
+    const localSong = settings.song || '';
+    const songLink = settings.songLink || '';
+    let audio;
+    if (localSong) { audio = new Audio(localSong); audio.loop = true; }
+    document.querySelector('#littleMessageText').textContent = settings.littleMessage || 'I made this tiny place just to remind you: I see every little thing you do, and I am so grateful that it is you.';
+
+    // Welcome envelope + floating hearts
+    document.querySelector('#openLetter').addEventListener('click', () => {
+      document.querySelector('#welcome').classList.add('gone');
+      makeSparkles(innerWidth / 2, innerHeight / 2, 22);
+      if (audio) {
+        audio.play().catch(() => {});
+      } else if (songLink.trim()) {
+        window.open(songLink, '_blank', 'noopener,noreferrer');
+      }
+    });
+    const littleNote = document.querySelector('#littleNote');
+    document.querySelector('#littleMessageButton').addEventListener('click', () => littleNote.classList.add('show'));
+    document.querySelector('#closeNote').addEventListener('click', () => littleNote.classList.remove('show'));
+    littleNote.addEventListener('click', event => { if (event.target === littleNote) littleNote.classList.remove('show'); });
+    for (let i = 0; i < 18; i++) {
+      const heart = document.createElement('span');
+      heart.className = 'float-heart'; heart.textContent = i % 3 ? '♥' : '✦';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (8 + Math.random() * 9) + 's';
+      heart.style.animationDelay = (-Math.random() * 14) + 's';
+      heart.style.fontSize = (12 + Math.random() * 24) + 'px';
+      document.querySelector('.closing').append(heart);
+    }
+    const reveal = new IntersectionObserver(items => items.forEach(item => {
+      if (item.isIntersecting) { item.target.classList.add('show'); reveal.unobserve(item.target); }
+    }), { threshold: .16 });
+    document.querySelectorAll('.reveal').forEach(item => reveal.observe(item));
+    function makeSparkles(x, y, total = 10) {
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('i'); dot.className = 'spark';
+        const angle = Math.random() * Math.PI * 2, distance = 25 + Math.random() * 70;
+        dot.style.left = x + 'px'; dot.style.top = y + 'px';
+        dot.style.setProperty('--x', Math.cos(angle) * distance + 'px');
+        dot.style.setProperty('--y', Math.sin(angle) * distance + 'px');
+        document.body.append(dot); setTimeout(() => dot.remove(), 800);
+      }
+    }
+    document.addEventListener('click', event => {
+      if (!event.target.closest('button, a')) makeSparkles(event.clientX, event.clientY, 7);
+    });
+  </script>
+</body>
+</html>
